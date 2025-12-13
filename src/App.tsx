@@ -7,6 +7,12 @@ import { AuthProvider } from "@/hooks/useAuth";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
+import Tutores from "./pages/Tutores";
+import Pets from "./pages/Pets";
+import Reservas from "./pages/Reservas";
+import Financeiro from "./pages/Financeiro";
+import CaixaPDV from "./pages/CaixaPDV";
+import ReservaPublica from "./pages/ReservaPublica";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +28,12 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/tutores" element={<Tutores />} />
+            <Route path="/pets" element={<Pets />} />
+            <Route path="/reservas" element={<Reservas />} />
+            <Route path="/financeiro" element={<Financeiro />} />
+            <Route path="/caixa" element={<CaixaPDV />} />
+            <Route path="/reservar/:tenantId" element={<ReservaPublica />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

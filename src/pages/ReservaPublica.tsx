@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { PawPrint, Calendar, CheckCircle, Loader2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { validateCPF, maskCPF } from '@/lib/cpfValidator';
 
 export default function ReservaPublica() {
   const { tenantId } = useParams<{ tenantId: string }>();
@@ -15,6 +16,7 @@ export default function ReservaPublica() {
   const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
     tutor_nome: '',
+    tutor_cpf: '',
     tutor_contato: '',
     tutor_email: '',
     data_inicio: '',
@@ -29,6 +31,13 @@ export default function ReservaPublica() {
       return;
     }
 
+    const cleanCpf = formData.tutor_cpf.replace(/\D/g, '');
+    
+    if (!validateCPF(cleanCpf)) {
+      toast.error('CPF inválido. Por favor, verifique.');
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -37,6 +46,7 @@ export default function ReservaPublica() {
         p_tutor_nome: formData.tutor_nome,
         p_tutor_contato: formData.tutor_contato,
         p_tutor_email: formData.tutor_email || '',
+        p_tutor_cpf: cleanCpf,
         p_data_inicio: formData.data_inicio,
         p_data_fim: formData.data_fim,
         p_observacoes: formData.observacoes || null
@@ -114,6 +124,18 @@ export default function ReservaPublica() {
                 onChange={(e) => setFormData({ ...formData, tutor_nome: e.target.value })}
                 required
               />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="tutor_cpf">CPF *</Label>
+              <Input
+                id="tutor_cpf"
+                placeholder="000.000.000-00"
+                value={formData.tutor_cpf}
+                onChange={(e) => setFormData({ ...formData, tutor_cpf: maskCPF(e.target.value) })}
+                required
+              />
+              <p className="text-xs text-muted-foreground">Seu CPF será usado como número do cartão do tutor</p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

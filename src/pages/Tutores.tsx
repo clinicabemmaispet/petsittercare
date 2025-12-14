@@ -6,14 +6,17 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Plus, Pencil, Trash2, Search, Users } from 'lucide-react';
+import { Plus, Pencil, Trash2, Search, Users, CreditCard, FileText } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
+import { TutorCardDialog } from '@/components/tutor/TutorCardDialog';
+import { validateCPF, maskCPF, formatCPF } from '@/lib/cpfValidator';
 
 interface Tutor {
   id: string;
   nome: string;
+  cpf: string | null;
   telefone: string;
   email: string | null;
   endereco: string | null;
@@ -26,8 +29,11 @@ export default function Tutores() {
   const [searchTerm, setSearchTerm] = useState('');
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingTutor, setEditingTutor] = useState<Tutor | null>(null);
+  const [selectedTutorId, setSelectedTutorId] = useState<string | null>(null);
+  const [cardDialogOpen, setCardDialogOpen] = useState(false);
   const [formData, setFormData] = useState({
     nome: '',
+    cpf: '',
     telefone: '',
     email: '',
     endereco: ''
@@ -58,12 +64,20 @@ export default function Tutores() {
     e.preventDefault();
     if (!user) return;
 
+    const cleanCpf = formData.cpf.replace(/\D/g, '');
+    
+    if (cleanCpf && !validateCPF(cleanCpf)) {
+      toast.error('CPF inválido');
+      return;
+    }
+
     try {
       if (editingTutor) {
         const { error } = await supabase
           .from('tutores')
           .update({
             nome: formData.nome,
+            cpf: cleanCpf || null,
             telefone: formData.telefone,
             email: formData.email || null,
             endereco: formData.endereco || null
@@ -77,6 +91,7 @@ export default function Tutores() {
           .from('tutores')
           .insert({
             nome: formData.nome,
+            cpf: cleanCpf || null,
             telefone: formData.telefone,
             email: formData.email || null,
             endereco: formData.endereco || null,
@@ -90,9 +105,13 @@ export default function Tutores() {
       setDialogOpen(false);
       resetForm();
       loadTutores();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Erro ao salvar tutor:', error);
-      toast.error('Erro ao salvar tutor');
+      if (error.code === '23505') {
+        toast.error('CPF já cadastrado para outro tutor');
+      } else {
+        toast.error('Erro ao salvar tutor');
+      }
     }
   };
 
@@ -114,6 +133,7 @@ export default function Tutores() {
     setEditingTutor(tutor);
     setFormData({
       nome: tutor.nome,
+      cpf: tutor.cpf ? formatCPF(tutor.cpf) : '',
       telefone: tutor.telefone,
       email: tutor.email || '',
       endereco: tutor.endereco || ''
@@ -121,14 +141,20 @@ export default function Tutores() {
     setDialogOpen(true);
   };
 
+  const openCardDialog = (tutorId: string) => {
+    setSelectedTutorId(tutorId);
+    setCardDialogOpen(true);
+  };
+
   const resetForm = () => {
     setEditingTutor(null);
-    setFormData({ nome: '', telefone: '', email: '', endereco: '' });
+    setFormData({ nome: '', cpf: '', telefone: '', email: '', endereco: '' });
   };
 
   const filteredTutores = tutores.filter(t =>
     t.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    t.telefone.includes(searchTerm)
+    t.telefone.includes(searchTerm) ||
+    (t.cpf && t.cpf.includes(searchTerm.replace(/\D/g, '')))
   );
 
   if (loading) {
@@ -174,6 +200,15 @@ export default function Tutores() {
                   />
                 </div>
                 <div className="space-y-2">
+                  <Label htmlFor="cpf">CPF (Nº do Cartão)</Label>
+                  <Input
+                    id="cpf"
+                    placeholder="000.000.000-00"
+                    value={formData.cpf}
+                    onChange={(e) => setFormData({ ...formData, cpf: maskCPF(e.target.value) })}
+                  />
+                </div>
+                <div className="space-y-2">
                   <Label htmlFor="telefone">Telefone *</Label>
                   <Input
                     id="telefone"
@@ -216,7 +251,7 @@ export default function Tutores() {
               <div className="relative flex-1 max-w-sm">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
-                  placeholder="Buscar tutor..."
+                  placeholder="Buscar por nome, telefone ou CPF..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
@@ -236,21 +271,30 @@ export default function Tutores() {
                   <TableHeader>
                     <TableRow>
                       <TableHead>Nome</TableHead>
+                      <TableHead>CPF (Nº Cartão)</TableHead>
                       <TableHead>Telefone</TableHead>
                       <TableHead>Email</TableHead>
-                      <TableHead>Endereço</TableHead>
-                      <TableHead className="w-24">Ações</TableHead>
+                      <TableHead className="w-36">Ações</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {filteredTutores.map((tutor) => (
                       <TableRow key={tutor.id}>
                         <TableCell className="font-medium">{tutor.nome}</TableCell>
+                        <TableCell>{tutor.cpf ? formatCPF(tutor.cpf) : '-'}</TableCell>
                         <TableCell>{tutor.telefone}</TableCell>
                         <TableCell>{tutor.email || '-'}</TableCell>
-                        <TableCell>{tutor.endereco || '-'}</TableCell>
                         <TableCell>
                           <div className="flex gap-1">
+                            <Button
+                              size="icon"
+                              variant="ghost"
+                              className="h-8 w-8 text-primary"
+                              onClick={() => openCardDialog(tutor.id)}
+                              title="Ver Cartão"
+                            >
+                              <CreditCard className="h-4 w-4" />
+                            </Button>
                             <Button
                               size="icon"
                               variant="ghost"
@@ -278,6 +322,12 @@ export default function Tutores() {
           </CardContent>
         </Card>
       </div>
+
+      <TutorCardDialog
+        tutorId={selectedTutorId}
+        open={cardDialogOpen}
+        onOpenChange={setCardDialogOpen}
+      />
     </DashboardLayout>
   );
 }

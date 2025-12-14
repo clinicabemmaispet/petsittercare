@@ -44,6 +44,66 @@ export type Database = {
         }
         Relationships: []
       }
+      documentos: {
+        Row: {
+          assinado_em: string | null
+          assinatura_url: string | null
+          conteudo: string
+          created_at: string
+          id: string
+          reserva_id: string | null
+          status: string
+          tenant_id: string
+          tipo: string
+          titulo: string
+          tutor_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          assinado_em?: string | null
+          assinatura_url?: string | null
+          conteudo: string
+          created_at?: string
+          id?: string
+          reserva_id?: string | null
+          status?: string
+          tenant_id: string
+          tipo?: string
+          titulo: string
+          tutor_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          assinado_em?: string | null
+          assinatura_url?: string | null
+          conteudo?: string
+          created_at?: string
+          id?: string
+          reserva_id?: string | null
+          status?: string
+          tenant_id?: string
+          tipo?: string
+          titulo?: string
+          tutor_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "documentos_reserva_id_fkey"
+            columns: ["reserva_id"]
+            isOneToOne: false
+            referencedRelation: "reservas"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "documentos_tutor_id_fkey"
+            columns: ["tutor_id"]
+            isOneToOne: false
+            referencedRelation: "tutores"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       financeiro: {
         Row: {
           categoria: string | null
@@ -249,8 +309,45 @@ export type Database = {
           },
         ]
       }
+      templates_documento: {
+        Row: {
+          ativo: boolean
+          conteudo: string
+          created_at: string
+          id: string
+          logo_url: string | null
+          nome: string
+          tenant_id: string
+          tipo: string
+          updated_at: string
+        }
+        Insert: {
+          ativo?: boolean
+          conteudo: string
+          created_at?: string
+          id?: string
+          logo_url?: string | null
+          nome: string
+          tenant_id: string
+          tipo?: string
+          updated_at?: string
+        }
+        Update: {
+          ativo?: boolean
+          conteudo?: string
+          created_at?: string
+          id?: string
+          logo_url?: string | null
+          nome?: string
+          tenant_id?: string
+          tipo?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       tutores: {
         Row: {
+          cpf: string | null
           created_at: string
           email: string | null
           endereco: string | null
@@ -261,6 +358,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          cpf?: string | null
           created_at?: string
           email?: string | null
           endereco?: string | null
@@ -271,6 +369,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          cpf?: string | null
           created_at?: string
           email?: string | null
           endereco?: string | null
@@ -305,18 +404,32 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      criar_reserva_anonima: {
-        Args: {
-          p_data_fim: string
-          p_data_inicio: string
-          p_observacoes?: string
-          p_tenant_id: string
-          p_tutor_contato: string
-          p_tutor_email: string
-          p_tutor_nome: string
-        }
-        Returns: string
-      }
+      criar_reserva_anonima:
+        | {
+            Args: {
+              p_data_fim: string
+              p_data_inicio: string
+              p_observacoes?: string
+              p_tenant_id: string
+              p_tutor_contato: string
+              p_tutor_email: string
+              p_tutor_nome: string
+            }
+            Returns: string
+          }
+        | {
+            Args: {
+              p_data_fim: string
+              p_data_inicio: string
+              p_observacoes?: string
+              p_tenant_id: string
+              p_tutor_contato: string
+              p_tutor_cpf: string
+              p_tutor_email: string
+              p_tutor_nome: string
+            }
+            Returns: string
+          }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

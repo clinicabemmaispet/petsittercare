@@ -6,16 +6,18 @@ import {
   Calendar, 
   Wallet, 
   CreditCard,
-  FileText,
   Link2,
   LogOut,
   Menu,
-  X
+  X,
+  Copy,
+  ExternalLink
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { toast } from 'sonner';
 
 const menuItems = [
   { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
@@ -24,18 +26,28 @@ const menuItems = [
   { icon: Calendar, label: 'Reservas', path: '/reservas' },
   { icon: Wallet, label: 'Financeiro', path: '/financeiro' },
   { icon: CreditCard, label: 'Caixa PDV', path: '/caixa' },
-  { icon: FileText, label: 'Documentos', path: '/documentos' },
-  { icon: Link2, label: 'Link Público', path: '/link-publico' },
 ];
 
 export function Sidebar() {
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleSignOut = async () => {
     await signOut();
     navigate('/auth');
+  };
+
+  const copyPublicLink = () => {
+    if (!user) return;
+    const link = `${window.location.origin}/reservar/${user.id}`;
+    navigator.clipboard.writeText(link);
+    toast.success('Link copiado para a área de transferência!');
+  };
+
+  const openPublicLink = () => {
+    if (!user) return;
+    window.open(`${window.location.origin}/reservar/${user.id}`, '_blank');
   };
 
   return (
@@ -89,6 +101,25 @@ export function Sidebar() {
               <span>{item.label}</span>
             </NavLink>
           ))}
+          
+          {/* Public Link Section */}
+          <div className="pt-4 mt-4 border-t border-sidebar-border">
+            <p className="px-4 py-2 text-xs font-semibold text-sidebar-foreground/50 uppercase">Link Público</p>
+            <button
+              onClick={copyPublicLink}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200"
+            >
+              <Copy className="h-5 w-5" />
+              <span>Copiar Link</span>
+            </button>
+            <button
+              onClick={openPublicLink}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200"
+            >
+              <ExternalLink className="h-5 w-5" />
+              <span>Abrir Link</span>
+            </button>
+          </div>
         </nav>
 
         {/* Footer */}

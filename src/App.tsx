@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
@@ -27,12 +28,12 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/tutores" element={<Tutores />} />
-            <Route path="/pets" element={<Pets />} />
-            <Route path="/reservas" element={<Reservas />} />
-            <Route path="/financeiro" element={<Financeiro />} />
-            <Route path="/caixa" element={<CaixaPDV />} />
+            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/tutores" element={<ProtectedRoute><Tutores /></ProtectedRoute>} />
+            <Route path="/pets" element={<ProtectedRoute><Pets /></ProtectedRoute>} />
+            <Route path="/reservas" element={<ProtectedRoute><Reservas /></ProtectedRoute>} />
+            <Route path="/financeiro" element={<ProtectedRoute><Financeiro /></ProtectedRoute>} />
+            <Route path="/caixa" element={<ProtectedRoute><CaixaPDV /></ProtectedRoute>} />
             <Route path="/reservar/:tenantId" element={<ReservaPublica />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

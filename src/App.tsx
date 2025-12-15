@@ -14,6 +14,7 @@ import Reservas from "./pages/Reservas";
 import Financeiro from "./pages/Financeiro";
 import CaixaPDV from "./pages/CaixaPDV";
 import Documentos from "./pages/Documentos";
+import Assinatura from "./pages/Assinatura";
 import ReservaPublica from "./pages/ReservaPublica";
 import NotFound from "./pages/NotFound";
 
@@ -36,6 +37,7 @@ const App = () => (
             <Route path="/financeiro" element={<ProtectedRoute><Financeiro /></ProtectedRoute>} />
             <Route path="/caixa" element={<ProtectedRoute><CaixaPDV /></ProtectedRoute>} />
             <Route path="/documentos" element={<ProtectedRoute><Documentos /></ProtectedRoute>} />
+            <Route path="/assinatura" element={<ProtectedRoute><Assinatura /></ProtectedRoute>} />
             <Route path="/reservar/:tenantId" element={<ReservaPublica />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

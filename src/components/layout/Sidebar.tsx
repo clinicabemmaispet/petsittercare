@@ -7,6 +7,7 @@ import {
   Wallet, 
   CreditCard,
   FileText,
+  Crown,
   LogOut,
   Menu,
   X,
@@ -27,6 +28,7 @@ const menuItems = [
   { icon: Wallet, label: 'Financeiro', path: '/financeiro' },
   { icon: CreditCard, label: 'Caixa PDV', path: '/caixa' },
   { icon: FileText, label: 'Documentos', path: '/documentos' },
+  { icon: Crown, label: 'Assinatura', path: '/assinatura' },
 ];
 
 export function Sidebar() {

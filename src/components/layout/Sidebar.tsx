@@ -6,7 +6,7 @@ import {
   Calendar, 
   Wallet, 
   CreditCard,
-  Link2,
+  FileText,
   LogOut,
   Menu,
   X,
@@ -26,6 +26,7 @@ const menuItems = [
   { icon: Calendar, label: 'Reservas', path: '/reservas' },
   { icon: Wallet, label: 'Financeiro', path: '/financeiro' },
   { icon: CreditCard, label: 'Caixa PDV', path: '/caixa' },
+  { icon: FileText, label: 'Documentos', path: '/documentos' },
 ];
 
 export function Sidebar() {

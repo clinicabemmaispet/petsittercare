@@ -10,22 +10,22 @@ import { toast } from 'sonner';
 
 const PLANS = {
   monthly: {
-    priceId: 'price_1SeRA6K0WxZIdTiKFXgdzzlW',
+    priceId: 'price_1SfBifK0WxZIdTiKu0XHqupK',
     productId: 'prod_TbeTr5OBdedb8j',
-    name: 'Mensal',
-    price: 49.90,
+    name: 'Mensal Pro',
+    price: 19.90,
     period: '/mês',
     description: 'Pagamento mensal flexível',
   },
   annual: {
     priceId: 'price_1SeRAMK0WxZIdTiKA3R5RXVI',
     productId: 'prod_TbeTVyLnpYIcrH',
-    name: 'Anual',
-    price: 419.16,
-    originalPrice: 598.80,
+    name: 'Anual Pro',
+    price: 119.90,
+    originalPrice: 238.80,
     period: '/ano',
-    description: '30% de desconto - Economia de R$ 179,64',
-    discount: 30,
+    description: 'Assine 12, pague 10 meses - Economia de 2 meses',
+    discount: 17,
   },
 };
 
@@ -222,9 +222,9 @@ export default function Assinatura() {
 
           {/* Plano Anual */}
           <Card className={`relative ${isCurrentPlan(PLANS.annual.priceId) ? 'border-primary border-2' : 'border-accent'}`}>
-            {PLANS.annual.discount && !isCurrentPlan(PLANS.annual.priceId) && (
+            {!isCurrentPlan(PLANS.annual.priceId) && (
               <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-accent-foreground">
-                {PLANS.annual.discount}% OFF
+                2 MESES GRÁTIS
               </Badge>
             )}
             {isCurrentPlan(PLANS.annual.priceId) && (

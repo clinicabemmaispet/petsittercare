@@ -134,8 +134,46 @@ export default function Index() {
         </div>
       </section>
 
+      {/* Pet Gallery Section */}
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-10">
+            <Badge variant="secondary" className="mb-4">Nossos Amigos</Badge>
+            <h2 className="text-3xl lg:text-4xl font-display font-bold mb-4">
+              Pets felizes, tutores satisfeitos
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
+              <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&h=400&fit=crop" alt="Golden Retriever feliz" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            </div>
+            <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-accent/10 to-primary/10 flex items-center justify-center">
+              <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400&h=400&fit=crop" alt="Gato laranja" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            </div>
+            <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
+              <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400&h=400&fit=crop" alt="Bulldog Francês" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            </div>
+            <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-accent/10 to-primary/10 flex items-center justify-center">
+              <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=400&h=400&fit=crop" alt="Gato cinza" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            </div>
+            <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-accent/10 to-primary/10 flex items-center justify-center">
+              <img src="https://images.unsplash.com/photo-1534361960057-19889db9621e?w=400&h=400&fit=crop" alt="Labrador brincando" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            </div>
+            <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
+              <img src="https://images.unsplash.com/photo-1561037404-61cd46aa615b?w=400&h=400&fit=crop" alt="Cachorro com brinquedo" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            </div>
+            <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-accent/10 to-primary/10 flex items-center justify-center">
+              <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&h=400&fit=crop" alt="Beagle fofo" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            </div>
+            <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
+              <img src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=400&h=400&fit=crop" alt="Gato siamês" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Benefits */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -196,10 +234,10 @@ export default function Index() {
             {/* Monthly */}
             <Card className="card-hover relative overflow-hidden">
               <CardContent className="p-8">
-                <h3 className="text-xl font-display font-bold mb-2">Mensal</h3>
+                <h3 className="text-xl font-display font-bold mb-2">Mensal Pro</h3>
                 <p className="text-muted-foreground text-sm mb-6">Flexibilidade total</p>
                 <div className="mb-6">
-                  <span className="text-4xl font-bold">R$ 49,90</span>
+                  <span className="text-4xl font-bold">R$ 19,90</span>
                   <span className="text-muted-foreground">/mês</span>
                 </div>
                 <ul className="space-y-3 mb-8">
@@ -219,20 +257,20 @@ export default function Index() {
             {/* Annual */}
             <Card className="card-hover relative overflow-hidden border-primary shadow-lg">
               <div className="absolute top-0 right-0 bg-accent text-accent-foreground text-xs font-bold px-3 py-1 rounded-bl-lg">
-                30% OFF
+                2 MESES GRÁTIS
               </div>
               <CardContent className="p-8">
-                <h3 className="text-xl font-display font-bold mb-2">Anual</h3>
-                <p className="text-muted-foreground text-sm mb-6">Melhor custo-benefício</p>
+                <h3 className="text-xl font-display font-bold mb-2">Anual Pro</h3>
+                <p className="text-muted-foreground text-sm mb-6">Assine 12, pague 10</p>
                 <div className="mb-2">
-                  <span className="text-4xl font-bold">R$ 34,93</span>
-                  <span className="text-muted-foreground">/mês</span>
+                  <span className="text-4xl font-bold">R$ 119,90</span>
+                  <span className="text-muted-foreground">/ano</span>
                 </div>
                 <p className="text-sm text-muted-foreground mb-6">
-                  Cobrado R$ 419,16/ano <span className="line-through">R$ 598,80</span>
+                  Equivale a R$ 9,99/mês <span className="line-through">R$ 238,80</span>
                 </p>
                 <ul className="space-y-3 mb-8">
-                  {['Tudo do plano mensal', 'Economia de R$ 179,64', 'Prioridade no suporte', 'Novos recursos primeiro', 'Badge "Apoiador"', 'Sem reajuste por 12 meses'].map((item, i) => (
+                  {['Tudo do plano mensal', 'Economia de 2 meses', 'Prioridade no suporte', 'Novos recursos primeiro', 'Badge "Apoiador"', 'Sem reajuste por 12 meses'].map((item, i) => (
                     <li key={i} className="flex items-center gap-2 text-sm">
                       <Check className="h-4 w-4 text-primary" />
                       {item}

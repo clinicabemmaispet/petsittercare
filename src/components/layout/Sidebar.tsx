@@ -8,6 +8,7 @@ import {
   CreditCard,
   FileText,
   Crown,
+  Shield,
   LogOut,
   Menu,
   X,
@@ -16,6 +17,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
+import { useSuperAdmin } from '@/hooks/useSuperAdmin';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
@@ -33,6 +35,7 @@ const menuItems = [
 
 export function Sidebar() {
   const { signOut, user } = useAuth();
+  const { isSuperAdmin } = useSuperAdmin();
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -104,6 +107,23 @@ export function Sidebar() {
               <span>{item.label}</span>
             </NavLink>
           ))}
+          
+          {/* Super Admin Link */}
+          {isSuperAdmin && (
+            <NavLink
+              to="/admin"
+              onClick={() => setMobileOpen(false)}
+              className={({ isActive }) => cn(
+                "flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-200",
+                isActive 
+                  ? "bg-accent text-accent-foreground shadow-md" 
+                  : "text-accent hover:bg-sidebar-accent hover:text-accent"
+              )}
+            >
+              <Shield className="h-5 w-5" />
+              <span>Super Admin</span>
+            </NavLink>
+          )}
           
           {/* Public Link Section */}
           <div className="pt-4 mt-4 border-t border-sidebar-border">

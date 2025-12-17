@@ -15,6 +15,7 @@ import Financeiro from "./pages/Financeiro";
 import CaixaPDV from "./pages/CaixaPDV";
 import Documentos from "./pages/Documentos";
 import Assinatura from "./pages/Assinatura";
+import Admin from "./pages/Admin";
 import ReservaPublica from "./pages/ReservaPublica";
 import NotFound from "./pages/NotFound";
 
@@ -38,6 +39,7 @@ const App = () => (
             <Route path="/caixa" element={<ProtectedRoute><CaixaPDV /></ProtectedRoute>} />
             <Route path="/documentos" element={<ProtectedRoute><Documentos /></ProtectedRoute>} />
             <Route path="/assinatura" element={<ProtectedRoute><Assinatura /></ProtectedRoute>} />
+            <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
             <Route path="/reservar/:tenantId" element={<ReservaPublica />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

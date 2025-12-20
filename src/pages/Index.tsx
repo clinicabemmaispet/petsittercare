@@ -143,30 +143,44 @@ export default function Index() {
               Pets felizes, tutores satisfeitos
             </h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            {/* Pets */}
+            <div className="aspect-square rounded-2xl overflow-hidden">
               <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&h=400&fit=crop" alt="Golden Retriever feliz" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
             </div>
-            <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-accent/10 to-primary/10 flex items-center justify-center">
+            <div className="aspect-square rounded-2xl overflow-hidden">
               <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400&h=400&fit=crop" alt="Gato laranja" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
             </div>
-            <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
+            <div className="aspect-square rounded-2xl overflow-hidden">
               <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400&h=400&fit=crop" alt="Bulldog Francês" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
             </div>
-            <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-accent/10 to-primary/10 flex items-center justify-center">
+            <div className="aspect-square rounded-2xl overflow-hidden">
               <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=400&h=400&fit=crop" alt="Gato cinza" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
             </div>
-            <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-accent/10 to-primary/10 flex items-center justify-center">
+            <div className="aspect-square rounded-2xl overflow-hidden">
               <img src="https://images.unsplash.com/photo-1534361960057-19889db9621e?w=400&h=400&fit=crop" alt="Labrador brincando" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
             </div>
-            <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
+            <div className="aspect-square rounded-2xl overflow-hidden">
               <img src="https://images.unsplash.com/photo-1561037404-61cd46aa615b?w=400&h=400&fit=crop" alt="Cachorro com brinquedo" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
             </div>
-            <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-accent/10 to-primary/10 flex items-center justify-center">
+            {/* Tutores com Pets */}
+            <div className="aspect-square rounded-2xl overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1544568100-847a948585b9?w=400&h=400&fit=crop" alt="Tutor passeando com cachorro" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            </div>
+            <div className="aspect-square rounded-2xl overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=400&h=400&fit=crop" alt="Pessoa abraçando cachorro" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            </div>
+            <div className="aspect-square rounded-2xl overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400&h=400&fit=crop" alt="Mulher com gato" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            </div>
+            <div className="aspect-square rounded-2xl overflow-hidden">
               <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&h=400&fit=crop" alt="Beagle fofo" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
             </div>
-            <div className="aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
+            <div className="aspect-square rounded-2xl overflow-hidden">
               <img src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=400&h=400&fit=crop" alt="Gato siamês" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            </div>
+            <div className="aspect-square rounded-2xl overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1587559045816-8b0a54d19eb1?w=400&h=400&fit=crop" alt="Pet sitter com cães" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
             </div>
           </div>
         </div>

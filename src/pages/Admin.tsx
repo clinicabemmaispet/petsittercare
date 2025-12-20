@@ -45,7 +45,7 @@ export default function Admin() {
       title: 'Configurações Globais',
       description: 'APIs, Webhooks, Ambiente e Segurança',
       icon: Settings,
-      action: () => toast.info('Em desenvolvimento'),
+      action: () => navigate('/admin/configuracoes'),
       actionLabel: 'Configurar',
     },
     {
@@ -53,7 +53,7 @@ export default function Admin() {
       title: 'E-mails Transacionais',
       description: 'Templates e configurações de envio',
       icon: Mail,
-      action: () => toast.info('Em desenvolvimento'),
+      action: () => navigate('/admin/emails'),
       actionLabel: 'Configurar',
     },
     {
@@ -70,7 +70,7 @@ export default function Admin() {
       title: 'Permissões de Planos',
       description: 'Definir limites de acesso por plano',
       icon: Shield,
-      action: () => toast.info('Em desenvolvimento'),
+      action: () => navigate('/admin/permissoes'),
       actionLabel: 'Configurar',
     },
   ];

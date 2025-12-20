@@ -16,6 +16,9 @@ import CaixaPDV from "./pages/CaixaPDV";
 import Documentos from "./pages/Documentos";
 import Assinatura from "./pages/Assinatura";
 import Admin from "./pages/Admin";
+import ConfiguracoesGlobais from "./pages/admin/ConfiguracoesGlobais";
+import EmailsTransacionais from "./pages/admin/EmailsTransacionais";
+import PermissoesPlanos from "./pages/admin/PermissoesPlanos";
 import ReservaPublica from "./pages/ReservaPublica";
 import NotFound from "./pages/NotFound";
 
@@ -40,6 +43,9 @@ const App = () => (
             <Route path="/documentos" element={<ProtectedRoute><Documentos /></ProtectedRoute>} />
             <Route path="/assinatura" element={<ProtectedRoute><Assinatura /></ProtectedRoute>} />
             <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
+            <Route path="/admin/configuracoes" element={<ProtectedRoute><ConfiguracoesGlobais /></ProtectedRoute>} />
+            <Route path="/admin/emails" element={<ProtectedRoute><EmailsTransacionais /></ProtectedRoute>} />
+            <Route path="/admin/permissoes" element={<ProtectedRoute><PermissoesPlanos /></ProtectedRoute>} />
             <Route path="/reservar/:tenantId" element={<ReservaPublica />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -44,6 +44,33 @@ export type Database = {
         }
         Relationships: []
       }
+      configuracoes_sistema: {
+        Row: {
+          chave: string
+          created_at: string
+          descricao: string | null
+          id: string
+          updated_at: string
+          valor: Json
+        }
+        Insert: {
+          chave: string
+          created_at?: string
+          descricao?: string | null
+          id?: string
+          updated_at?: string
+          valor?: Json
+        }
+        Update: {
+          chave?: string
+          created_at?: string
+          descricao?: string | null
+          id?: string
+          updated_at?: string
+          valor?: Json
+        }
+        Relationships: []
+      }
       documentos: {
         Row: {
           assinado_em: string | null

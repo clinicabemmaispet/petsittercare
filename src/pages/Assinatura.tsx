@@ -8,43 +8,62 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
 
-const PLANS = {
-  monthly: {
-    priceId: 'price_1SfBifK0WxZIdTiKu0XHqupK',
-    productId: 'prod_TbeTr5OBdedb8j',
-    name: 'Mensal Pro',
-    price: 19.90,
-    period: '/mês',
-    description: 'Pagamento mensal flexível',
-  },
-  annual: {
-    priceId: 'price_1SeRAMK0WxZIdTiKA3R5RXVI',
-    productId: 'prod_TbeTVyLnpYIcrH',
-    name: 'Anual Pro',
-    price: 119.90,
-    originalPrice: 238.80,
-    period: '/ano',
-    description: 'Assine 12, pague 10 meses - Economia de 2 meses',
-    discount: 17,
-  },
-};
+interface PlanConfig {
+  price_id: string;
+  product_id: string;
+  nome: string;
+  preco: number;
+  descricao: string;
+  periodo: string;
+  badge?: string;
+}
 
-const features = [
-  'Gestão ilimitada de tutores e pets',
-  'Controle completo de reservas',
-  'Gestão financeira (contas a pagar/receber)',
-  'Caixa PDV integrado',
-  'Documentos e contratos digitais',
-  'Assinatura digital de documentos',
-  'Link público para agendamento',
-  'Exportação em PDF',
-  'Suporte prioritário',
-];
+interface PlanosConfig {
+  mensal: PlanConfig;
+  anual: PlanConfig;
+  features: string[];
+  dias_carencia: number;
+}
+
+// Default config as fallback
+const DEFAULT_PLANS: PlanosConfig = {
+  mensal: {
+    price_id: 'price_1SfBifK0WxZIdTiKu0XHqupK',
+    product_id: 'prod_mensal',
+    nome: 'Mensal Pro',
+    preco: 19.90,
+    descricao: 'Pagamento mensal flexível',
+    periodo: 'mês',
+  },
+  anual: {
+    price_id: 'price_1SeRAMK0WxZIdTiKA3R5RXVI',
+    product_id: 'prod_anual',
+    nome: 'Anual Pro',
+    preco: 119.90,
+    descricao: 'Assine 12, pague 10 meses',
+    periodo: 'ano',
+    badge: '2 MESES GRÁTIS',
+  },
+  features: [
+    'Gestão ilimitada de tutores e pets',
+    'Controle completo de reservas',
+    'Gestão financeira (contas a pagar/receber)',
+    'Caixa PDV integrado',
+    'Documentos e contratos digitais',
+    'Assinatura digital de documentos',
+    'Link público para agendamento',
+    'Exportação em PDF',
+    'Suporte prioritário',
+  ],
+  dias_carencia: 7,
+};
 
 export default function Assinatura() {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   const [checkingSubscription, setCheckingSubscription] = useState(true);
+  const [loadingPlans, setLoadingPlans] = useState(true);
+  const [plans, setPlans] = useState<PlanosConfig>(DEFAULT_PLANS);
   const [subscription, setSubscription] = useState<{
     subscribed: boolean;
     priceId?: string;
@@ -52,8 +71,31 @@ export default function Assinatura() {
   } | null>(null);
 
   useEffect(() => {
+    loadPlans();
+  }, []);
+
+  useEffect(() => {
     checkSubscription();
   }, [user]);
+
+  const loadPlans = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('configuracoes_sistema')
+        .select('valor')
+        .eq('chave', 'planos')
+        .maybeSingle();
+
+      if (error) throw error;
+      if (data?.valor) {
+        setPlans(data.valor as unknown as PlanosConfig);
+      }
+    } catch (error) {
+      console.error('Error loading plans:', error);
+    } finally {
+      setLoadingPlans(false);
+    }
+  };
 
   const checkSubscription = async () => {
     if (!user) return;
@@ -69,7 +111,11 @@ export default function Assinatura() {
       });
 
       if (error) throw error;
-      setSubscription(data);
+      setSubscription({
+        subscribed: data.subscribed,
+        priceId: data.price_id,
+        subscriptionEnd: data.subscription_end,
+      });
     } catch (error) {
       console.error('Error checking subscription:', error);
     } finally {
@@ -135,7 +181,7 @@ export default function Assinatura() {
 
   const isCurrentPlan = (priceId: string) => subscription?.priceId === priceId;
 
-  if (checkingSubscription) {
+  if (checkingSubscription || loadingPlans) {
     return (
       <DashboardLayout>
         <div className="flex items-center justify-center h-64">
@@ -144,6 +190,8 @@ export default function Assinatura() {
       </DashboardLayout>
     );
   }
+
+  const originalAnualPrice = plans.mensal.preco * 12;
 
   return (
     <DashboardLayout>
@@ -181,24 +229,24 @@ export default function Assinatura() {
 
         <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {/* Plano Mensal */}
-          <Card className={`relative ${isCurrentPlan(PLANS.monthly.priceId) ? 'border-primary border-2' : ''}`}>
-            {isCurrentPlan(PLANS.monthly.priceId) && (
+          <Card className={`relative ${isCurrentPlan(plans.mensal.price_id) ? 'border-primary border-2' : ''}`}>
+            {isCurrentPlan(plans.mensal.price_id) && (
               <Badge className="absolute -top-3 left-1/2 -translate-x-1/2">Seu Plano</Badge>
             )}
             <CardHeader>
-              <CardTitle className="text-xl">{PLANS.monthly.name}</CardTitle>
-              <CardDescription>{PLANS.monthly.description}</CardDescription>
+              <CardTitle className="text-xl">{plans.mensal.nome}</CardTitle>
+              <CardDescription>{plans.mensal.descricao}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="text-center">
                 <span className="text-4xl font-bold text-foreground">
-                  R$ {PLANS.monthly.price.toFixed(2).replace('.', ',')}
+                  R$ {plans.mensal.preco.toFixed(2).replace('.', ',')}
                 </span>
-                <span className="text-muted-foreground">{PLANS.monthly.period}</span>
+                <span className="text-muted-foreground">/{plans.mensal.periodo}</span>
               </div>
 
               <ul className="space-y-3">
-                {features.map((feature, i) => (
+                {plans.features.map((feature, i) => (
                   <li key={i} className="flex items-center gap-2 text-sm">
                     <Check className="h-4 w-4 text-primary flex-shrink-0" />
                     <span>{feature}</span>
@@ -208,48 +256,48 @@ export default function Assinatura() {
 
               <Button 
                 className="w-full" 
-                variant={isCurrentPlan(PLANS.monthly.priceId) ? "outline" : "default"}
-                onClick={() => handleSubscribe(PLANS.monthly.priceId)}
-                disabled={loading || isCurrentPlan(PLANS.monthly.priceId)}
+                variant={isCurrentPlan(plans.mensal.price_id) ? "outline" : "default"}
+                onClick={() => handleSubscribe(plans.mensal.price_id)}
+                disabled={loading || isCurrentPlan(plans.mensal.price_id)}
               >
                 {loading ? (
                   <Loader2 className="h-4 w-4 animate-spin mr-2" />
                 ) : null}
-                {isCurrentPlan(PLANS.monthly.priceId) ? 'Plano Atual' : 'Assinar Mensal'}
+                {isCurrentPlan(plans.mensal.price_id) ? 'Plano Atual' : 'Assinar Mensal'}
               </Button>
             </CardContent>
           </Card>
 
           {/* Plano Anual */}
-          <Card className={`relative ${isCurrentPlan(PLANS.annual.priceId) ? 'border-primary border-2' : 'border-accent'}`}>
-            {!isCurrentPlan(PLANS.annual.priceId) && (
+          <Card className={`relative ${isCurrentPlan(plans.anual.price_id) ? 'border-primary border-2' : 'border-accent'}`}>
+            {!isCurrentPlan(plans.anual.price_id) && plans.anual.badge && (
               <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-accent-foreground">
-                2 MESES GRÁTIS
+                {plans.anual.badge}
               </Badge>
             )}
-            {isCurrentPlan(PLANS.annual.priceId) && (
+            {isCurrentPlan(plans.anual.price_id) && (
               <Badge className="absolute -top-3 left-1/2 -translate-x-1/2">Seu Plano</Badge>
             )}
             <CardHeader>
-              <CardTitle className="text-xl">{PLANS.annual.name}</CardTitle>
-              <CardDescription>{PLANS.annual.description}</CardDescription>
+              <CardTitle className="text-xl">{plans.anual.nome}</CardTitle>
+              <CardDescription>{plans.anual.descricao}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="text-center">
                 <div className="text-sm text-muted-foreground line-through">
-                  R$ {PLANS.annual.originalPrice?.toFixed(2).replace('.', ',')}
+                  R$ {originalAnualPrice.toFixed(2).replace('.', ',')}
                 </div>
                 <span className="text-4xl font-bold text-foreground">
-                  R$ {PLANS.annual.price.toFixed(2).replace('.', ',')}
+                  R$ {plans.anual.preco.toFixed(2).replace('.', ',')}
                 </span>
-                <span className="text-muted-foreground">{PLANS.annual.period}</span>
+                <span className="text-muted-foreground">/{plans.anual.periodo}</span>
                 <p className="text-xs text-muted-foreground mt-1">
-                  (equivale a R$ {(PLANS.annual.price / 12).toFixed(2).replace('.', ',')}/mês)
+                  (equivale a R$ {(plans.anual.preco / 12).toFixed(2).replace('.', ',')}/mês)
                 </p>
               </div>
 
               <ul className="space-y-3">
-                {features.map((feature, i) => (
+                {plans.features.map((feature, i) => (
                   <li key={i} className="flex items-center gap-2 text-sm">
                     <Check className="h-4 w-4 text-primary flex-shrink-0" />
                     <span>{feature}</span>
@@ -259,21 +307,22 @@ export default function Assinatura() {
 
               <Button 
                 className="w-full gradient-warm text-accent-foreground" 
-                variant={isCurrentPlan(PLANS.annual.priceId) ? "outline" : "default"}
-                onClick={() => handleSubscribe(PLANS.annual.priceId)}
-                disabled={loading || isCurrentPlan(PLANS.annual.priceId)}
+                variant={isCurrentPlan(plans.anual.price_id) ? "outline" : "default"}
+                onClick={() => handleSubscribe(plans.anual.price_id)}
+                disabled={loading || isCurrentPlan(plans.anual.price_id)}
               >
                 {loading ? (
                   <Loader2 className="h-4 w-4 animate-spin mr-2" />
                 ) : null}
-                {isCurrentPlan(PLANS.annual.priceId) ? 'Plano Atual' : 'Assinar Anual'}
+                {isCurrentPlan(plans.anual.price_id) ? 'Plano Atual' : 'Assinar Anual'}
               </Button>
             </CardContent>
           </Card>
         </div>
 
         <p className="text-center text-sm text-muted-foreground">
-          Pagamento seguro via Stripe. Cancele a qualquer momento.
+          Pagamento seguro via Stripe. Cancele a qualquer momento. 
+          Período de carência de {plans.dias_carencia} dias após vencimento.
         </p>
       </div>
     </DashboardLayout>

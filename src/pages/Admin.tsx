@@ -32,9 +32,25 @@ export default function Admin() {
 
   const modules = [
     {
-      id: 'plans',
-      title: 'Gestão de Planos',
-      description: 'Gerenciar planos de assinatura e valores (Stripe)',
+      id: 'homepage',
+      title: 'Conteúdo da Homepage',
+      description: 'Editar textos, títulos e features da página inicial',
+      icon: Settings,
+      action: () => navigate('/admin/homepage'),
+      actionLabel: 'Editar Conteúdo',
+    },
+    {
+      id: 'planos',
+      title: 'Configuração de Planos',
+      description: 'Editar preços, features e período de carência',
+      icon: CreditCard,
+      action: () => navigate('/admin/planos'),
+      actionLabel: 'Configurar Planos',
+    },
+    {
+      id: 'stripe',
+      title: 'Gestão Stripe',
+      description: 'Gerenciar produtos e preços no Stripe',
       icon: CreditCard,
       action: () => window.open('https://dashboard.stripe.com/products', '_blank'),
       actionLabel: 'Abrir Stripe Dashboard',

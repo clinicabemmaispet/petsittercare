@@ -37,8 +37,17 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <header className="relative overflow-hidden">
-        <div className="absolute inset-0 gradient-hero opacity-90" />
+      <header className="relative overflow-hidden min-h-[600px] lg:min-h-[700px]">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ 
+            backgroundImage: "url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1920&q=80')" 
+          }}
+        />
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/70" />
+        {/* Pattern Overlay */}
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iNCIvPjwvZz48L2c+PC9zdmc+')] opacity-30" />
         
         <nav className="relative z-10 container mx-auto px-4 py-6 flex items-center justify-between">
@@ -67,7 +76,7 @@ export default function Index() {
               Sua agenda de Pet Sitting{' '}
               <span className="text-secondary">100% organizada</span>
             </h1>
-            <p className="text-lg lg:text-xl text-white/85 mb-8 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+            <p className="text-lg lg:text-xl text-white/90 mb-8 animate-slide-up" style={{ animationDelay: '0.1s' }}>
               Chega de planilhas e WhatsApp bagunçado. Gerencie tutores, pets, reservas, 
               contratos e finanças em uma única plataforma feita para você.
             </p>
@@ -79,7 +88,7 @@ export default function Index() {
                 Ver Planos
               </Button>
             </div>
-            <p className="text-white/60 text-sm mt-4 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+            <p className="text-white/70 text-sm mt-4 animate-slide-up" style={{ animationDelay: '0.3s' }}>
               ✓ Teste grátis &nbsp; ✓ Sem cartão de crédito &nbsp; ✓ Cancele quando quiser
             </p>
           </div>
@@ -145,42 +154,42 @@ export default function Index() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {/* Pets */}
-            <div className="aspect-square rounded-2xl overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&h=400&fit=crop" alt="Golden Retriever feliz" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            <div className="aspect-square rounded-2xl overflow-hidden shadow-md">
+              <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&h=400&fit=crop" alt="Golden Retriever feliz" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
             </div>
-            <div className="aspect-square rounded-2xl overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400&h=400&fit=crop" alt="Gato laranja" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            <div className="aspect-square rounded-2xl overflow-hidden shadow-md">
+              <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400&h=400&fit=crop" alt="Gato laranja" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
             </div>
-            <div className="aspect-square rounded-2xl overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400&h=400&fit=crop" alt="Bulldog Francês" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            <div className="aspect-square rounded-2xl overflow-hidden shadow-md">
+              <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400&h=400&fit=crop" alt="Bulldog Francês" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
             </div>
-            <div className="aspect-square rounded-2xl overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=400&h=400&fit=crop" alt="Gato cinza" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            <div className="aspect-square rounded-2xl overflow-hidden shadow-md">
+              <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=400&h=400&fit=crop" alt="Gato cinza" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
             </div>
-            <div className="aspect-square rounded-2xl overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1534361960057-19889db9621e?w=400&h=400&fit=crop" alt="Labrador brincando" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            <div className="aspect-square rounded-2xl overflow-hidden shadow-md">
+              <img src="https://images.unsplash.com/photo-1534361960057-19889db9621e?w=400&h=400&fit=crop" alt="Labrador brincando" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
             </div>
-            <div className="aspect-square rounded-2xl overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1561037404-61cd46aa615b?w=400&h=400&fit=crop" alt="Cachorro com brinquedo" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            <div className="aspect-square rounded-2xl overflow-hidden shadow-md">
+              <img src="https://images.unsplash.com/photo-1561037404-61cd46aa615b?w=400&h=400&fit=crop" alt="Cachorro com brinquedo" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
             </div>
             {/* Tutores com Pets */}
-            <div className="aspect-square rounded-2xl overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1544568100-847a948585b9?w=400&h=400&fit=crop" alt="Tutor passeando com cachorro" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            <div className="aspect-square rounded-2xl overflow-hidden shadow-md">
+              <img src="https://images.unsplash.com/photo-1544568100-847a948585b9?w=400&h=400&fit=crop" alt="Cachorro correndo feliz" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
             </div>
-            <div className="aspect-square rounded-2xl overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=400&h=400&fit=crop" alt="Pessoa abraçando cachorro" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            <div className="aspect-square rounded-2xl overflow-hidden shadow-md">
+              <img src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=400&h=400&fit=crop" alt="Pessoa abraçando cachorro" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
             </div>
-            <div className="aspect-square rounded-2xl overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400&h=400&fit=crop" alt="Mulher com gato" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            <div className="aspect-square rounded-2xl overflow-hidden shadow-md">
+              <img src="https://images.unsplash.com/photo-1415369629372-26f2fe60c467?w=400&h=400&fit=crop" alt="Família com cachorro" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
             </div>
-            <div className="aspect-square rounded-2xl overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&h=400&fit=crop" alt="Beagle fofo" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            <div className="aspect-square rounded-2xl overflow-hidden shadow-md">
+              <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&h=400&fit=crop" alt="Beagle fofo" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
             </div>
-            <div className="aspect-square rounded-2xl overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=400&h=400&fit=crop" alt="Gato siamês" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            <div className="aspect-square rounded-2xl overflow-hidden shadow-md">
+              <img src="https://images.unsplash.com/photo-1529778873920-4da4926a72c2?w=400&h=400&fit=crop" alt="Gato fofo" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
             </div>
-            <div className="aspect-square rounded-2xl overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1587559045816-8b0a54d19eb1?w=400&h=400&fit=crop" alt="Pet sitter com cães" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+            <div className="aspect-square rounded-2xl overflow-hidden shadow-md">
+              <img src="https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?w=400&h=400&fit=crop" alt="Golden retriever sorrindo" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy" />
             </div>
           </div>
         </div>

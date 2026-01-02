@@ -28,19 +28,19 @@ interface PlanosConfig {
 // Default config as fallback
 const DEFAULT_PLANS: PlanosConfig = {
   mensal: {
-    price_id: 'price_1SfBifK0WxZIdTiKu0XHqupK',
-    product_id: 'prod_mensal',
-    nome: 'Mensal Pro',
-    preco: 19.90,
+    price_id: 'price_1SiTXsK0WxZIdTiKNyUeRO85',
+    product_id: 'prod_TfpC3BTixDRiPZ',
+    nome: 'Mensal',
+    preco: 9.90,
     descricao: 'Pagamento mensal flexível',
     periodo: 'mês',
   },
   anual: {
-    price_id: 'price_1SeRAMK0WxZIdTiKA3R5RXVI',
-    product_id: 'prod_anual',
-    nome: 'Anual Pro',
-    preco: 119.90,
-    descricao: 'Assine 12, pague 10 meses',
+    price_id: 'price_1SiTYlK0WxZIdTiKPlPT3C8f',
+    product_id: 'prod_TfpD3KO4nfvAcb',
+    nome: 'Anual',
+    preco: 99.90,
+    descricao: 'Pague 10, ganhe 12 meses',
     periodo: 'ano',
     badge: '2 MESES GRÁTIS',
   },

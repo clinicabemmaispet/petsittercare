@@ -248,10 +248,10 @@ export default function Index() {
             {/* Monthly */}
             <Card className="card-hover relative overflow-hidden">
               <CardContent className="p-8">
-                <h3 className="text-xl font-display font-bold mb-2">Mensal Pro</h3>
+                <h3 className="text-xl font-display font-bold mb-2">Mensal</h3>
                 <p className="text-muted-foreground text-sm mb-6">Flexibilidade total</p>
                 <div className="mb-6">
-                  <span className="text-4xl font-bold">R$ 19,90</span>
+                  <span className="text-4xl font-bold">R$ 9,90</span>
                   <span className="text-muted-foreground">/mês</span>
                 </div>
                 <ul className="space-y-3 mb-8">
@@ -274,14 +274,14 @@ export default function Index() {
                 2 MESES GRÁTIS
               </div>
               <CardContent className="p-8">
-                <h3 className="text-xl font-display font-bold mb-2">Anual Pro</h3>
-                <p className="text-muted-foreground text-sm mb-6">Assine 12, pague 10</p>
+                <h3 className="text-xl font-display font-bold mb-2">Anual</h3>
+                <p className="text-muted-foreground text-sm mb-6">Pague 10, ganhe 12</p>
                 <div className="mb-2">
-                  <span className="text-4xl font-bold">R$ 119,90</span>
+                  <span className="text-4xl font-bold">R$ 99,90</span>
                   <span className="text-muted-foreground">/ano</span>
                 </div>
                 <p className="text-sm text-muted-foreground mb-6">
-                  Equivale a R$ 9,99/mês <span className="line-through">R$ 238,80</span>
+                  Equivale a R$ 8,33/mês <span className="line-through">R$ 118,80</span>
                 </p>
                 <ul className="space-y-3 mb-8">
                   {['Tudo do plano mensal', 'Economia de 2 meses', 'Prioridade no suporte', 'Novos recursos primeiro', 'Badge "Apoiador"', 'Sem reajuste por 12 meses'].map((item, i) => (
